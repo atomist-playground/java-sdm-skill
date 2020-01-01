@@ -15,7 +15,7 @@
 #
 
 skill:
-  name: '@atomist/java-sdm'
+  name: '@atomist/java-sdm-skill'
   version: '0.1.0'
   author: Atomist
   description: Atomist SDM to build Maven based projects

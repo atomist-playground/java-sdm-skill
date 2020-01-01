@@ -1,0 +1,67 @@
+#
+#  Copyright © 2019 Atomist, Inc.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+
+skill:
+  name: '@atomist/java-sdm'
+  version: '0.1.0'
+  author: Atomist
+  description: Atomist SDM to build Maven based projects
+  category:
+    - ci
+  technology:
+    - docker
+    - maven
+    - java
+  license: Apache-2.0
+  homepage: https://github.com/atomist-playground/java-sdm-skill
+  repository: https://github.com/atomist-playground/java-sdm-skill.git
+  icon: https://www.docker.com/sites/default/files/social/docker_facebook_share.png
+
+---
+
+rules:
+
+  - name: maven build
+    tests:
+      - has_file: pom.xml
+    goals:
+      - use: '@atomist/maven-skill/mvn'
+        name: mvn package
+        parameters:
+          phase: package
+        output:
+          - classifier: ${repo.owner}/${repo.name}/${sha}/build/artifact
+            pattern:
+              directory: target
+
+  - name: docker build
+    tests:
+      is_goal:
+        output: ^.*build\/artifact$
+        test:
+          and:
+            - has_file: pom.xml
+            - has_file: Dockerfile
+            - has_resource_provider:
+                type: docker
+    goals:
+      - use: '@atomist/docker-skill/build'
+        name: docker build
+        parameters:
+          image: atomist/${repo.name}
+          tag: ${sha}
+        input:
+          - classifier: ${repo.owner}/${repo.name}/${sha}/build/artifact

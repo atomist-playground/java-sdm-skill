@@ -31,6 +31,9 @@ skill:
   repository: https://github.com/atomist-playground/java-sdm-skill.git
   icon: https://www.docker.com/sites/default/files/social/docker_facebook_share.png
 
+  package:
+    - use: '@atomist/package-sdm-skill/package'
+
 rules:
 
   - name: immaterial

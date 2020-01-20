@@ -1,5 +1,5 @@
 #
-#  Copyright © 2019 Atomist, Inc.
+#  Copyright © 2020 Atomist, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 
 skill:
   name: '@atomist/java-sdm-skill'
-  version: '0.1.0'
+  title: Simple Java SDM skill
+  version: 0.1.0
   author: Atomist
   description: Atomist SDM to build Maven based projects
   category:
@@ -29,8 +30,6 @@ skill:
   homepage: https://github.com/atomist-playground/java-sdm-skill
   repository: https://github.com/atomist-playground/java-sdm-skill.git
   icon: https://www.docker.com/sites/default/files/social/docker_facebook_share.png
-
----
 
 rules:
 

@@ -79,7 +79,7 @@ rules:
             - has_resource_provider:
                 type: docker
     goals:
-      - use: '@atomist/docker-skill/build'
+      - use: '@atomist/docker-build-skill/build'
         name: docker build
         parameters:
           image: atomist/${repo.name}
